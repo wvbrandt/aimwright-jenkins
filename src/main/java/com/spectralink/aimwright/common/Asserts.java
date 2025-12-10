@@ -136,13 +136,13 @@ public class Asserts {
      */
     public static void onPage(Page page, String endpoint) {
         String currentUrl = page.url();
-        String expectedUrl = Defaults.getUiInstance() + endpoint;
+        String expectedUrl = Settings.getUiInstance() + endpoint;
 
         if (endpoint.isEmpty()) {
-            expectedUrl = Defaults.getUiInstance() + "/";
+            expectedUrl = Settings.getUiInstance() + "/";
         }
 
-        if (!currentUrl.contains(endpoint.isEmpty() ? Defaults.getUiInstance() : endpoint)) {
+        if (!currentUrl.contains(endpoint.isEmpty() ? Settings.getUiInstance() : endpoint)) {
             log.error("Expected URL containing '{}', but was '{}'", endpoint, currentUrl);
         }
 

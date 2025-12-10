@@ -5,9 +5,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.spectralink.aimwright.common.Defaults;
 import org.eclipse.paho.client.mqttv3.*;
 import org.slf4j.LoggerFactory;
+import com.spectralink.aimwright.common.Settings;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class MqttAgent {
             if (customPort != null && !customPort.isEmpty()) {
                 port = customPort;
             }
-            brokerAddress = Defaults.getGatewayAddress();
+            brokerAddress = Settings.getGatewayAddress();
             String gatewayMqttUri = "";
             if (brokerAddress == null || brokerAddress.isEmpty()) {
                 throw new Exception("Could not find gateway address for current context");

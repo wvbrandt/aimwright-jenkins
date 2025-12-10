@@ -1,7 +1,7 @@
 package com.spectralink.aimwright.tests.hierarchy;
 
 import com.spectralink.aimwright.common.BaseTest;
-import com.spectralink.aimwright.common.Defaults;
+import com.spectralink.aimwright.common.Settings;
 import com.spectralink.aimwright.common.Session;
 import com.spectralink.aimwright.pages.BasePage;
 import com.spectralink.aimwright.pages.locations.LocationsListPage;
@@ -29,7 +29,7 @@ public class LocationCrudTest extends BaseTest {
         // Login and set org context
         Session.uiLoginSpectraLinkSuperUser(page);
         basePage = new BasePage(page);
-        basePage.selectOrganization(Defaults.getOrgName());
+        basePage.selectOrganization(Settings.getOrgName());
 
         // Navigate to locations
         locPage = new LocationsListPage(page);

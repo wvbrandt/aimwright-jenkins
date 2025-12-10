@@ -3,8 +3,8 @@ package com.spectralink.aimwright.tests.monitoring;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.spectralink.aimwright.api.AmieApiClient;
 import com.spectralink.aimwright.common.BaseTest;
-import com.spectralink.aimwright.common.Defaults;
 import com.spectralink.aimwright.common.Session;
+import com.spectralink.aimwright.common.Settings;
 import com.spectralink.aimwright.pages.BasePage;
 import com.spectralink.aimwright.pages.DashboardPage;
 import org.testng.Assert;
@@ -32,7 +32,7 @@ public class DashboardCountsTest extends BaseTest {
         // Login and set org context
         Session.uiLoginAdminUser(page);
         BasePage basePage = new BasePage(page);
-        basePage.selectOrganization(Defaults.getOrgName());
+        basePage.selectOrganization(Settings.getOrgName());
 
         // Get API client for data verification
         apiClient = Session.getAmieApiClient();

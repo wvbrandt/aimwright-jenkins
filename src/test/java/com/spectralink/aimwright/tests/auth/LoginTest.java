@@ -1,7 +1,6 @@
 package com.spectralink.aimwright.tests.auth;
 
 import com.spectralink.aimwright.common.BaseTest;
-import com.spectralink.aimwright.common.Defaults;
 import com.spectralink.aimwright.common.Session;
 import com.spectralink.aimwright.pages.BasePage;
 import org.testng.Assert;

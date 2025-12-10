@@ -82,7 +82,7 @@ public class DataLookup {
 
     public static String getLocationIds() {
         if (!Session.isCredentialsSet()) {
-            Session.setCredentials(Settings.get("target.user"), Settings.get("target.password"));
+            Session.setCredentials(Settings.getUserSpectraLink(), Settings.getUserSpectraLinkPassword());
         }
         List<String> locationIds = new ArrayList<>();
         ArrayNode responseJsonArray = Session.getAmieApiClient().sendRequest(GET, "locations/dropdown-list").getJsonArrayBody();

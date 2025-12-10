@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.spectralink.aimwright.api.AmieApiClient;
-import com.spectralink.aimwright.common.Defaults;
 import com.spectralink.aimwright.common.Session;
+import com.spectralink.aimwright.common.Settings;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -207,7 +207,7 @@ public class SimulatedPhone {
      * Gets the gateway IP address for a location via API.
      */
     public static String locationIpAddress(String locationName) {
-        locationName = Defaults.getLocationName();
+        locationName = Settings.getLocationName();
         String result = "";
         AmieApiClient apiClient = Session.getAmieApiClient();
         ObjectNode bodyData = apiClient.sendRequest(GET, endpoint).getJsonObjectBody();
@@ -805,7 +805,7 @@ public class SimulatedPhone {
             fullMqttMessage.put("timestamp", System.currentTimeMillis());
             fullMqttMessage.set("data", getBuffer());
             log.debug("Sending {} updates to MQTT broker from buffer", getBuffer().size());
-            if (Defaults.isDebugMode()) {
+            if (Settings.isDebugMode()) {
                 log.debug(fullMqttMessage.toPrettyString());
             } else {
                 MqttAgent agent = new MqttAgent(getDevice_serial_number(), null);

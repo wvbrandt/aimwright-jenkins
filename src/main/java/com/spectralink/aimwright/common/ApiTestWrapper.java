@@ -29,7 +29,7 @@ public class ApiTestWrapper {
 
     @BeforeSuite(alwaysRun = true)
     public void loadConfig() {
-        Defaults.loadDefaults();
+        Settings.loadAll();
         log.info("Aimwright API test framework initialized");
     }
 

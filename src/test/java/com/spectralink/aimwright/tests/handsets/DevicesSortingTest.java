@@ -24,7 +24,7 @@ public class DevicesSortingTest extends BaseTest {
         // Login and set org context
         Session.uiLoginAdminUser(page);
         BasePage basePage = new BasePage(page);
-        basePage.selectOrganization(Defaults.getOrgName());
+        basePage.selectOrganization(Settings.getOrgName());
 
         // Navigate to devices
         devicesPage = new DevicesSummaryPage(page);

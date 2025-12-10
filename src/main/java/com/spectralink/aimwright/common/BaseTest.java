@@ -46,17 +46,18 @@ public class BaseTest {
 
     @BeforeSuite(alwaysRun = true)
     public void initializeFramework() {
-        // Load configuration from RunConfiguration.json
-        Defaults.loadDefaults();
+        // Load configuration from settings.properties
+        Settings.loadAll();
+        Settings.initializeTestDirectories();
 
-        // Get URL from new configuration system
-        url = Defaults.getUiInstance();
+        // Get URL from configuration system
+        url = Settings.getUiInstance();
 
         // Create Playwright instance
         playwright = Playwright.create();
 
         // Select browser type from configuration
-        String browserName = Defaults.getBrowserApplication();
+        String browserName = Settings.getBrowserApplication();
         switch (browserName.toLowerCase()) {
             case "chromium":
             case "chrome":
@@ -76,13 +77,13 @@ public class BaseTest {
 
         // Launch browser with configuration options
         BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions()
-                .setHeadless(Defaults.getBrowserHeadless());
+                .setHeadless(Settings.getBrowserHeadless());
 
         browser = browserType.launch(launchOptions);
         log.debug("Started {} browser version: {}", browserName, browser.version());
 
         // Set default assertion timeout
-        PlaywrightAssertions.setDefaultAssertionTimeout(Defaults.getBrowserDefaultTimeout());
+        PlaywrightAssertions.setDefaultAssertionTimeout(Settings.getBrowserDefaultTimeout());
 
         log.info("Aimwright Playwright framework initialized");
     }
@@ -97,7 +98,7 @@ public class BaseTest {
         context = browser.newContext();
 
         // Start tracing for debugging (captures screenshots, snapshots, sources)
-        if (Defaults.getBrowserTraceOnFailure()) {
+        if (Settings.getBrowserTraceOnFailure()) {
             context.tracing().start(new Tracing.StartOptions()
                     .setScreenshots(true)
                     .setSnapshots(true)
@@ -120,12 +121,12 @@ public class BaseTest {
         }
 
         // Stop tracing
-        if (Defaults.getBrowserTraceOnFailure()) {
+        if (Settings.getBrowserTraceOnFailure()) {
             if (result.getStatus() == ITestResult.SUCCESS) {
                 context.tracing().stop();
             } else {
                 // Save trace on failure
-                File traceDir = Defaults.getTraceDirectory();
+                File traceDir = Settings.getTraceDirectory();
                 if (traceDir != null) {
                     Path tracePath = Paths.get(traceDir.getPath(), method.getName() + ".zip");
                     context.tracing().stop(new Tracing.StopOptions().setPath(tracePath));
@@ -160,9 +161,9 @@ public class BaseTest {
      */
     private void saveFailureArtifacts(String testName) {
         // Save screenshot on failure
-        if (Defaults.getBrowserFailureScreenshot() && page != null) {
+        if (Settings.getBrowserFailureScreenshot() && page != null) {
             try {
-                File screenshotDir = Defaults.getScreenshotDirectory();
+                File screenshotDir = Settings.getScreenshotDirectory();
                 if (screenshotDir != null) {
                     Path screenshotPath = Paths.get(screenshotDir.getPath(), testName + ".png");
                     page.screenshot(new Page.ScreenshotOptions()

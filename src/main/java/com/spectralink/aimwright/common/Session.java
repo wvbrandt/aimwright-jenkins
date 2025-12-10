@@ -64,7 +64,7 @@ public class Session {
      * Sets credentials to the default SpectraLink super user from configuration.
      */
     public static void setCredentials() {
-        setCredentials(Defaults.getUserSpectraLink(), Defaults.getUserSpectraLinkPassword());
+        setCredentials(Settings.getUserSpectraLink(), Settings.getUserSpectraLinkPassword());
     }
 
     public static void setCredentials(String accountName, String accountPassword) {
@@ -84,7 +84,7 @@ public class Session {
     }
 
     public static void setOrganizationId() {
-        Session.setOrganizationId(DataLookup.getOrganizationId(Defaults.getOrgName()));
+        Session.setOrganizationId(DataLookup.getOrganizationId(Settings.getOrgName()));
     }
 
     public static void setOrganizationId(String organizationId) {
@@ -133,7 +133,7 @@ public class Session {
      * Logs in as SpectraLink super user.
      */
     public static void uiLoginSpectraLinkSuperUser(Page page) {
-        setCredentials(Defaults.getUserSpectraLink(), Defaults.getUserSpectraLinkPassword());
+        setCredentials(Settings.getUserSpectraLink(), Settings.getUserSpectraLinkPassword());
         withCredentials(page, getAccountName(), getAccountPassword());
         Assert.assertTrue(isLoggedIn(page), "Login failed for SpectraLink super user");
     }
@@ -142,7 +142,7 @@ public class Session {
      * Logs in as read-only user.
      */
     public static void uiLoginReadOnlyUser(Page page) {
-        setCredentials(Defaults.getUserReadOnly(), Defaults.getUserReadOnlyPassword());
+        setCredentials(Settings.getUserReadOnly(), Settings.getUserReadOnlyPassword());
         withCredentials(page, getAccountName(), getAccountPassword());
         Assert.assertTrue(isLoggedIn(page), "Login failed for read-only user");
     }
@@ -151,7 +151,7 @@ public class Session {
      * Logs in as admin user.
      */
     public static void uiLoginAdminUser(Page page) {
-        setCredentials(Defaults.getUserAdmin(), Defaults.getUserAdminPassword());
+        setCredentials(Settings.getUserAdmin(), Settings.getUserAdminPassword());
         withCredentials(page, getAccountName(), getAccountPassword());
         Assert.assertTrue(isLoggedIn(page), "Login failed for admin user");
     }
@@ -160,7 +160,7 @@ public class Session {
      * Logs in as super user.
      */
     public static void uiLoginSuperUser(Page page) {
-        setCredentials(Defaults.getUserSuperUser(), Defaults.getUserSuperUserPassword());
+        setCredentials(Settings.getUserSuperUser(), Settings.getUserSuperUserPassword());
         withCredentials(page, getAccountName(), getAccountPassword());
         Assert.assertTrue(isLoggedIn(page), "Login failed for super user");
     }
@@ -169,7 +169,7 @@ public class Session {
      * Logs in as SP read-only user.
      */
     public static void uiLoginSpReadOnlyUser(Page page) {
-        setCredentials(Defaults.getUserSPReadOnly(), Defaults.getUserSPReadOnlyPassword());
+        setCredentials(Settings.getUserSPReadOnly(), Settings.getUserSPReadOnlyPassword());
         withCredentials(page, getAccountName(), getAccountPassword());
         Assert.assertTrue(isLoggedIn(page), "Login failed for SP read-only user");
     }
@@ -178,7 +178,7 @@ public class Session {
      * Logs in as SP super user.
      */
     public static void uiLoginSpSuperUser(Page page) {
-        setCredentials(Defaults.getUserSPSuperUser(), Defaults.getUserSPSuperUserPassword());
+        setCredentials(Settings.getUserSPSuperUser(), Settings.getUserSPSuperUserPassword());
         withCredentials(page, getAccountName(), getAccountPassword());
         Assert.assertTrue(isLoggedIn(page), "Login failed for SP super user");
     }

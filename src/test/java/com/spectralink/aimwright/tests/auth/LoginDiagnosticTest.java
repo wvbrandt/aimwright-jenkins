@@ -1,7 +1,7 @@
 package com.spectralink.aimwright.tests.auth;
 
 import com.spectralink.aimwright.common.BaseTest;
-import com.spectralink.aimwright.common.Defaults;
+import com.spectralink.aimwright.common.Settings;
 import com.spectralink.aimwright.pages.LoginPage;
 import org.testng.annotations.Test;
 
@@ -13,8 +13,8 @@ public class LoginDiagnosticTest extends BaseTest {
     @Test(description = "Diagnostic: Check login page elements and attempt login")
     public void diagnosticLogin() {
         // Log the credentials being used (masked)
-        String username = Defaults.getUserAdmin();
-        String password = Defaults.getUserAdminPassword();
+        String username = Settings.getUserAdmin();
+        String password = Settings.getUserAdminPassword();
         log.info("Testing login with username: {}", username);
         log.info("Password length: {}", password.length());
 

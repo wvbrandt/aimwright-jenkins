@@ -24,7 +24,7 @@ public class LocationSortingTest extends BaseTest {
         // Login and set org context
         Session.uiLoginSpectraLinkSuperUser(page);
         BasePage basePage = new BasePage(page);
-        basePage.selectOrganization(Defaults.getOrgName());
+        basePage.selectOrganization(Settings.getOrgName());
 
         // Navigate to locations
         locPage = new LocationsListPage(page);

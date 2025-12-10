@@ -18,7 +18,7 @@ public class ExampleTest extends BaseTest {
         softAssert.assertEquals(page.title(), "AMiE", "Beginning page title was not correct");
 
         LoginPage loginPage = new LoginPage(page);
-        loginPage.loginWithCredentials(Settings.get("target.user"), Settings.get("target.password"));
+        loginPage.loginWithCredentials(Settings.getUserSpectraLink(), Settings.getUserSpectraLinkPassword());
 
         BasePage basePage = new BasePage(page);
         softAssert.assertEquals(basePage.isLoggedIn(), true, "Landing page was not correct");

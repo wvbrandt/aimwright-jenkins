@@ -32,7 +32,7 @@ public class AmieApiClient {
             // the endpoint provided is a full url, using it as provided
             url = endpoint;
         } else {
-            url = Settings.get("instance.api");
+            url = Settings.getApiInstance();
             if (url.endsWith("/")) url = url.substring(0, url.length() - 1);
             if (endpoint.startsWith("/api")) {
                 url += endpoint;

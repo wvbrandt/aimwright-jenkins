@@ -3,7 +3,7 @@ package com.spectralink.aimwright.helpers;
 import ch.qos.logback.classic.Logger;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-import com.spectralink.aimwright.common.Defaults;
+import com.spectralink.aimwright.common.Settings;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
@@ -260,7 +260,7 @@ public class NavigationHelper {
      * Verifies the current URL contains the expected endpoint.
      */
     public void verifyOnPage(String endpoint) {
-        String expectedUrl = Defaults.getUiInstance() + endpoint;
+        String expectedUrl = Settings.getUiInstance() + endpoint;
         Assert.assertEquals(page.url(), expectedUrl, "Expected to be on page: " + endpoint);
     }
 }
