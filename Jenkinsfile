@@ -1,12 +1,14 @@
 pipeline {
-    agent any
-
-    tools {
-        maven 'Maven 3.8.6' // Configure this in Jenkins Global Tool Configuration
-        jdk 'JDK 11'        // Configure this in Jenkins Global Tool Configuration
+    agent {
+        label 'QA-Automation-16'
     }
 
     parameters {
+        string(
+            name: 'BRANCH',
+            defaultValue: 'master',
+            description: 'Git branch to checkout'
+        )
         choice(
             name: 'TEST_SUITE',
             choices: ['all', 'auth-tests', 'hierarchy-tests', 'handsets-tests', 'infrastructure-tests', 'monitoring-tests', 'api-tests'],
@@ -20,23 +22,26 @@ pipeline {
     }
 
     environment {
-        MAVEN_OPTS = '-Xmx1024m -XX:MaxPermSize=256m'
+        MAVEN_OPTS = '-Xmx1024m -XX:MaxMetaspaceSize=256m'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checking out source code...'
-                checkout scm
+                echo "Checking out source code from GitHub (branch: ${params.BRANCH})..."
+                git branch: "${params.BRANCH}",
+                    credentialsId: 'f0d79d40-42a1-41d4-ac93-c58d81c5c773',
+                    url: 'https://github.com/wvbrandt/aimwright-jenkins.git'
             }
         }
 
         stage('Install Playwright Browsers') {
             steps {
-                echo 'Installing Playwright browser dependencies...'
-                sh '''
-                    mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps chromium" || true
-                '''
+                script {
+                    echo 'Installing Playwright browser dependencies...'
+                    env.JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
+                    sh 'mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install" || true'
+                }
             }
         }
 
@@ -57,18 +62,47 @@ pipeline {
                         echo 'Running tests in headless mode'
                     }
 
+                    // Start Xvfb for virtual display
+                    sh '''
+                        # Start Xvfb on display :99
+                        Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
+                        XVFB_PID=$!
+                        echo $XVFB_PID > /tmp/xvfb.pid
+                        export DISPLAY=:99
+
+                        # Wait for Xvfb to start
+                        sleep 2
+                    '''
+
                     // Run all tests or specific suite
                     if (params.TEST_SUITE == 'all') {
-                        sh 'mvn test -Dtestng.suite.xml=testng.xml'
+                        sh 'DISPLAY=:99 mvn test -Dtestng.suite.xml=testng.xml'
                     } else {
-                        // Run specific test group
-                        sh "mvn test -Dgroups=${params.TEST_SUITE}"
+                        // Run specific test from testng.xml by test name
+                        sh "DISPLAY=:99 mvn test -DsuiteXmlFile=testng.xml -Dtestnames=${params.TEST_SUITE}"
                     }
+
+                    // Stop Xvfb
+                    sh '''
+                        if [ -f /tmp/xvfb.pid ]; then
+                            kill $(cat /tmp/xvfb.pid) || true
+                            rm /tmp/xvfb.pid
+                        fi
+                    '''
                 }
             }
             post {
                 always {
                     echo 'Archiving test results...'
+
+                    // Clean up Xvfb process
+                    sh '''
+                        if [ -f /tmp/xvfb.pid ]; then
+                            kill $(cat /tmp/xvfb.pid) || true
+                            rm /tmp/xvfb.pid
+                        fi
+                    '''
+
                     // Publish TestNG results
                     step([$class: 'Publisher',
                         reportFilenamePattern: '**/testng-results.xml'])
