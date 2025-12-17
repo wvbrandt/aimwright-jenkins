@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="hierarchy-tests-suite" verbose="1">
+    <test name="hierarchy-tests">
+        <classes>
+            <class name="com.spectralink.aimwright.tests.hierarchy.OrganizationCrudTest"/>
+            <class name="com.spectralink.aimwright.tests.hierarchy.LocationCrudTest"/>
+            <class name="com.spectralink.aimwright.tests.hierarchy.LocationSortingTest"/>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="monitoring-tests-suite" verbose="1">
+    <test name="monitoring-tests">
+        <classes>
+            <class name="com.spectralink.aimwright.tests.monitoring.AlertsSortingTest"/>
+            <class name="com.spectralink.aimwright.tests.monitoring.DashboardCountsTest"/>
+        </classes>
+    </test>
+</suite>

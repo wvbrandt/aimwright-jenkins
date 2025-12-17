@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="infrastructure-tests-suite" verbose="1">
+    <test name="infrastructure-tests">
+        <classes>
+            <class name="com.spectralink.aimwright.tests.infrastructure.GatewaysSortingTest"/>
+        </classes>
+    </test>
+</suite>

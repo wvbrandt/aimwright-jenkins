@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="api-tests-suite" verbose="1">
+    <test name="api-tests">
+        <classes>
+            <class name="com.spectralink.aimwright.tests.api.DevicesApiTest"/>
+            <class name="com.spectralink.aimwright.tests.api.LocationsApiTest"/>
+            <class name="com.spectralink.aimwright.tests.api.OrganizationsApiTest"/>
+            <class name="com.spectralink.aimwright.tests.api.AccountsApiTest"/>
+        </classes>
+    </test>
+</suite>
