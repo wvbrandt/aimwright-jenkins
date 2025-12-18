@@ -107,8 +107,9 @@ public class BaseTest {
 
         // Create new page and navigate to application
         page = context.newPage();
+        page.setDefaultTimeout(Settings.getBrowserDefaultTimeout());
         page.navigate(url);
-        page.waitForLoadState(LoadState.NETWORKIDLE);
+        page.waitForLoadState(LoadState.LOAD);
     }
 
     @AfterMethod(alwaysRun = true)
