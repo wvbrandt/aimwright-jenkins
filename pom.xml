@@ -9,6 +9,7 @@
     <name>Aimwright</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <testng.suiteXmlFile>testng.xml</testng.suiteXmlFile>
     </properties>
     <dependencies>
         <dependency>
@@ -98,7 +99,7 @@
                 <version>3.0.0-M9</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                        <suiteXmlFile>${testng.suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                     <systemPropertyVariables>
