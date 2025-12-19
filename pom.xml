@@ -9,7 +9,6 @@
     <name>Aimwright</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <suiteXmlFile>testng.xml</suiteXmlFile>
     </properties>
     <dependencies>
         <dependency>
@@ -98,9 +97,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M9</version>
                 <configuration>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
-                    </suiteXmlFiles>
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                     <systemPropertyVariables>
                         <java.awt.headless>true</java.awt.headless>

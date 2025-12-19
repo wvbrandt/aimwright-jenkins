@@ -75,10 +75,10 @@ pipeline {
 
                     // Run all tests or specific suite
                     if (params.TEST_SUITE == 'all') {
-                        sh "DISPLAY=:99 mvn test -DsuiteXmlFile=testng.xml -Dbrowser.headless=${headlessFlag}"
+                        sh "DISPLAY=:99 mvn test -Dsurefire.suiteXmlFiles=testng.xml -Dbrowser.headless=${headlessFlag}"
                     } else {
                         // Run specific test suite using its dedicated XML file
-                        sh "DISPLAY=:99 mvn test -DsuiteXmlFile=testng-${params.TEST_SUITE}.xml -Dbrowser.headless=${headlessFlag}"
+                        sh "DISPLAY=:99 mvn test -Dsurefire.suiteXmlFiles=testng-${params.TEST_SUITE}.xml -Dbrowser.headless=${headlessFlag}"
                     }
 
                     // Stop Xvfb
