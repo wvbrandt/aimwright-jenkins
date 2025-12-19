@@ -56,11 +56,7 @@ pipeline {
             steps {
                 script {
                     echo "Running test suite: ${params.TEST_SUITE}"
-
-                    // Headless mode is configured in settings.properties
-                    if (params.HEADLESS_MODE) {
-                        echo 'Running tests in headless mode'
-                    }
+                    echo "Headless mode: ${params.HEADLESS_MODE}"
 
                     // Start Xvfb for virtual display
                     sh '''
@@ -74,12 +70,15 @@ pipeline {
                         sleep 2
                     '''
 
+                    // Set headless mode via system property (overrides settings.properties)
+                    def headlessFlag = params.HEADLESS_MODE ? 'true' : 'false'
+
                     // Run all tests or specific suite
                     if (params.TEST_SUITE == 'all') {
-                        sh 'DISPLAY=:99 mvn test -Dtestng.suite.xml=testng.xml'
+                        sh "DISPLAY=:99 mvn test -DsuiteXmlFile=testng.xml -Dbrowser.headless=${headlessFlag}"
                     } else {
                         // Run specific test suite using its dedicated XML file
-                        sh "DISPLAY=:99 mvn test -Dtestng.suite.xml=testng-${params.TEST_SUITE}.xml"
+                        sh "DISPLAY=:99 mvn test -DsuiteXmlFile=testng-${params.TEST_SUITE}.xml -Dbrowser.headless=${headlessFlag}"
                     }
 
                     // Stop Xvfb

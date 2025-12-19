@@ -45,6 +45,13 @@ public class Settings {
     }
 
     public static String get(String key) {
+        // Check system properties first (allows command-line override)
+        String systemValue = System.getProperty(key);
+        if (systemValue != null) {
+            return systemValue;
+        }
+
+        // Fall back to properties file
         if (properties == null) {
             loadAll();
             if (properties == null) return null;
